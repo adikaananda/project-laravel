@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -11,7 +12,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('category.index',[
+            'categories'=> $categories
+        ]);
+        
     }
 
     /**
@@ -19,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.form');
     }
 
     /**
@@ -27,7 +32,23 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3|unique:categories,name',
+            'is_active' =>  'boolean|nullable',
+            'description' => 'string'
+        ]);
+
+        try {
+            Category::create([
+                'name' => $request->name,
+                'is_active' => $request->is_active,
+                'description' => $request->description
+            ]);
+
+            return redirect()->route('categories.index')->with('success', 'Category created successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to create category');
+        }
     }
 
     /**
@@ -51,7 +72,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate($request -> validate([
+            'name'=> $request->name,
+            'is_active'=> $request->is_active,
+            'description' => $request->des
+        ]));
     }
 
     /**

@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/admin', DashboardController::class){->name("dashboard");
+Route::prefix("admin")->group(function () {
   Route::get('/', DashboardController::class)->name('dashboard');
+  Route::resource('categories', CategoryController::class);
+  Route::resource('products', ProductController::class);
 
-Route::get('login',  function () {
-  return view('login.index');
-})->name('login');
+});
