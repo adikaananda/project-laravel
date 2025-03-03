@@ -123,8 +123,10 @@
           </button>
         </div>
       </form>
-    </div>
-  </div>
+       
+    </div>
+      
+  </div>
 
   <div class="flex flex-col gap-5">
     <div>
@@ -152,7 +154,7 @@
       <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
         <div class="border-b border-stroke px-6.5 py-4 flex items-center dark:border-strokedark">
           <h3 class="font-medium text-black dark:text-white">
-            Color
+            Variant
           </h3>
         </div>
 
@@ -173,8 +175,10 @@
           </button>
         </div>
       </div>
-    </div>
-  </div>
+       
+    </div>
+      
+  </div>
 
 </div>
 
@@ -197,8 +201,7 @@
       variants.push(...{!! json_encode($product->variants) !!});
     @else
     variants.push({
-        color: "#000000",
-        variant_name: "Black",
+        variant_name: "Gold",
         stock: 0,
       });
     @endif
@@ -296,24 +299,18 @@
           <div class="w-full grid grid-cols-3 gap-5">
             <div>
               <label class="mb-3 block text-sm font-medium text-black dark:text-white">Name</label>
-              <input type="text" placeholder="Name" class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-none focus:ring focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" data-type="variant_name" value="${variant.variant_name}" data-index=${index}>
+              <input type="text" placeholder="Name" class="input-color dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-none focus:ring focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" data-type="variant_name" value="${variant.variant_name}" data-index=${index}>
             </div>
 
             <div>
               <label class="mb-3 block text-sm font-medium text-black dark:text-white">Stock</label>
-              <input type="number" placeholder="0"  class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-none focus:ring focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" data-type="stock" value="${variant.stock}" data-index=${index}>
-            </div>
-          
-            <div>
-              <label class="mb-3 block text-sm font-medium text-black dark:text-white">Color</label>
               <div class="flex gap-2">
-                <input  class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-none focus:ring focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" data-type="color" data-index="${index}" type="color" value="${variant.color}" />
-                <button data-index="${index}" class="btn-delete-color bg-red-500 text-white px-3 rounded-lg py-1 text-sm hover:bg-red-500/90 transition-colors">
+              <input type="number" placeholder="0"  class="input-color dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-none focus:ring focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" data-type="stock" value="${variant.stock}" data-index=${index}>
+              <button data-index="${index}" class="btn-delete-color bg-red-500 text-white px-3 rounded-lg py-1 text-sm hover:bg-red-500/90 transition-colors">
                   <i class="fa-solid fa-trash"></i>
                 </button>
               </div>
             </div>
-
           </div>
         `);
 
@@ -349,7 +346,7 @@
         icon: "question",
         showDenyButton: true,
         confirmButtonText: "Yes",
-        denyButtonText: No
+        denyButtonText: "No"
       });
 
       if (result.isConfirmed) {
@@ -387,6 +384,8 @@
         });
         return;
       }
+
+      console.log(variants)
       
       if (variants.length === 0 || variants.some(({variant_name, stock}) => !variant_name || !stock )) {
         Swal.fire({

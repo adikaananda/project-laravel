@@ -13,10 +13,9 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('category.index',[
-            'categories'=> $categories
+        return view('categories.index', [
+            'categories' => $categories
         ]);
-        
     }
 
     /**
@@ -24,7 +23,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.form');
+        return view('categories.form');
     }
 
     /**
@@ -72,9 +71,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate($request -> validate([
-            'name'=> $request->name,
-            'is_active'=> $request->is_active,
+        $request->validate($request->validate([
+            'name' => $request->name,
+            'is_active' => $request->is_active,
             'description' => $request->des
         ]));
     }
