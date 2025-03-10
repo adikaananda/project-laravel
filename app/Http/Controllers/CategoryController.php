@@ -11,12 +11,13 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $categories = Category::all();
-        return view('categories.index', [
-            'categories' => $categories
-        ]);
-    }
+{
+    // Fetch categories (you can paginate if needed)
+    $categories = Category::with('products')->paginate(10);  // Optional: change '10' based on how many categories per page
+
+    // Pass the categories to the view
+    return view('categories.index', compact('categories'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -33,29 +34,16 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3|unique:categories,name',
-            'is_active' =>  'boolean|nullable',
-            'description' => 'string'
+            'description' => 'nullable'
         ]);
 
-        try {
-            Category::create([
-                'name' => $request->name,
-                'is_active' => $request->is_active,
-                'description' => $request->description
-            ]);
+        Category::create([
+            'name' => $request->name,
+            'is_active' => $request->is_active ? true : false,
+            'description' => $request->description
+        ]);
 
-            return redirect()->route('categories.index')->with('success', 'Category created successfully!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to create category');
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('categories.index')->with('success', 'Category created successfully!');
     }
 
     /**
@@ -63,7 +51,13 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::find($id);
+        
+        if (!$category) {
+            return redirect()->route('categories.index')->with('error', 'Category not found');
+        }
+        
+        return view('categories.form', compact('category'));
     }
 
     /**
@@ -71,11 +65,24 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate($request->validate([
+        $category = Category::find($id);
+        
+        if (!$category) {
+            return redirect()->route('categories.index')->with('error', 'Category not found');
+        }
+        
+        $request->validate([
+            'name' => 'required|min:3|unique:categories,name,' . $id,
+            'description' => 'nullable'
+        ]);
+
+        $category->update([
             'name' => $request->name,
-            'is_active' => $request->is_active,
-            'description' => $request->des
-        ]));
+            'is_active' => $request->is_active ? true : false,
+            'description' => $request->description
+        ]);
+
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
     }
 
     /**
@@ -83,6 +90,13 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::find($id);
+        
+        if ($category) {
+            $category->delete();
+            return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
+        }
+        
+        return redirect()->route('categories.index')->with('error', 'Category not found');
     }
 }

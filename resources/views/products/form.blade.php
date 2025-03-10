@@ -306,6 +306,22 @@
               <label class="mb-3 block text-sm font-medium text-black dark:text-white">Stock</label>
               <div class="flex gap-2">
               <input type="number" placeholder="0"  class="input-color dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-none focus:ring focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" data-type="stock" value="${variant.stock}" data-index=${index}>
+              
+              </div>
+            </div>
+
+            <div>
+              <label class="mb-3 block text-sm font-medium text-black dark:text-white">Size</label>
+              <div class="flex gap-2">
+              <input type="number" placeholder="0"  class="input-color dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-none focus:ring focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" data-type="stock" value="${variant.size}" data-index=${index}>
+              
+              </div>
+            </div>
+
+            <div>
+              <label class="mb-3 block text-sm font-medium text-black dark:text-white">Weight</label>
+              <div class="flex gap-2">
+              <input type="number" placeholder="0"  class="input-color dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-none focus:ring focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" data-type="stock" value="${variant.weight}" data-index=${index}>
               <button data-index="${index}" class="btn-delete-color bg-red-500 text-white px-3 rounded-lg py-1 text-sm hover:bg-red-500/90 transition-colors">
                   <i class="fa-solid fa-trash"></i>
                 </button>

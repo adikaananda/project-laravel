@@ -17,6 +17,7 @@ class ProductController extends Controller
         $products = Product::all();
 
         return view('products.index', ['products' => $products]);
+        
     }
 
     /**
@@ -69,7 +70,9 @@ class ProductController extends Controller
                 foreach ($variants as $variant) {
                     $product->variants()->create([
                         'stock' => $variant['stock'],
-                        'variant_name' => $variant['variant_name']
+                        'variant_name' => $variant['variant_name'],
+                        'size' => $variant['size'],
+                        'weight' => $variant['weight']
                     ]);
                 }
             }
@@ -164,14 +167,18 @@ class ProductController extends Controller
                     if (isset($variant['id'])) {
                         $product->variants()->where('id', $variant['id'])->update([
                             'variant_name' => $variant['variant_name'],
-                            'stock' => $variant['stock']
+                            'stock' => $variant['stock'],
+                            'size' => $variant['size'],
+                            'weight' => $variant['weight']
                         ]);
 
                         $newVariantIds[] = $variant['id'];
                     } else {
                         $newVariant = $product->variants()->create([
                             'variant_name' => $variant['variant_name'],
-                            'stock' => $variant['stock']
+                            'stock' => $variant['stock'],
+                            'size' => $variant['size'],
+                            'weight' => $variant['weight']
                         ]);
 
                         $newVariantIds[] = $newVariant->id;

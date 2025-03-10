@@ -9,11 +9,14 @@ class ProductVariant extends Model
     protected $fillable = [
         'variant_name',
         'product_id',
-        'stock'
+        'stock',
+        'size',
+        'weight'
     ];
 
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
+    
 }

@@ -16,6 +16,7 @@ class Product extends Model
         'price',
         'images'
     ];
+    
 
     protected $casts = [
         'images' => 'array'
@@ -45,4 +46,7 @@ class Product extends Model
             }
         });
     }
+    
+    
 }
+
